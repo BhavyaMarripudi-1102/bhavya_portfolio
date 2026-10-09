@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bhavya Marripudi | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+    .floating-img {
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes popIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .pop-in {
+      animation: popIn 0.6s ease-out forwards;
+      transform-origin: left;
+    }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #0f172a;
+      color: #e2e8f0;
+      scroll-behavior: smooth;
+    }
+    nav {
+      background: #1e293b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    nav h1 {
+      font-weight: 700;
+      color: #facc15;
+      margin: 0;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+      margin: 0;
+      padding: 0;
+      flex-wrap: wrap;
+    }
+    nav li a {
+      text-decoration: none;
+      color: #e2e8f0;
+      font-weight: 500;
+      position: relative;
+    }
+    nav li a::after {
+      content: "";
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background-color: #facc15;
+      transition: 0.3s;
+    }
+    nav li a:hover::after {
+      width: 100%;
+    }
+    .section {
+      padding: 4rem 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .hero {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 3rem 2rem;
+    }
+    .hero img {
+      width: 280px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      object-fit: cover;
+    }
+    .hero-text {
+      max-width: 600px;
+    }
+    .hero-text h2 {
+      font-size: 2.5rem;
+      color: #facc15;
+    }
+    .tags, .tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .tag, .tool {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: #334155;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      color: #e2e8f0;
+      text-decoration: none;
+    }
+    .tag:hover, .tool:hover {
+      background-color: #facc15;
+      color: #0f172a;
+      transform: scale(1.05);
+    }
+    #experience .scroll-container {
+      max-height: 620px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      padding-right: 10px;
+      scrollbar-width: thin;
+      scrollbar-color: #facc15 #1e293b;
+    }
+    #experience .scroll-container::-webkit-scrollbar {
+      width: 8px;
+    }
+    #experience .scroll-container::-webkit-scrollbar-track {
+      background: #1e293b;
+      border-radius: 12px;
+    }
+    #experience .scroll-container::-webkit-scrollbar-thumb {
+      background-color: #facc15;
+      border-radius: 12px;
+    }
+    .experience-card {
+      flex: 0 0 auto;
+      background: #1e293b;
+      padding: 1.5rem;
+      border-radius: 1rem;
+      border-left: 4px solid #facc15;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    }
+    .experience-card:hover {
+      background: #0f172a;
+      transform: scale(1.01);
+      box-shadow: 0 8px 20px rgba(234, 179, 8, 0.3);
+    }
+    .experience-card h3 {
+      color: #facc15;
+      margin: 0 0 0.5rem;
+    }
+    .experience-card h4 {
+      color: #facc15;
+      margin: 1.25rem 0 0.25rem;
+      font-size: 1rem;
+    }
+    .experience-card p {
+      margin: 0.5rem 0 0.5rem;
+      font-weight: 500;
+    }
+    .experience-card ul {
+      padding-left: 1.25rem;
+      line-height: 1.6;
+      margin: 0.25rem 0 0;
+    }
+    .experience-card ul li {
+      margin-bottom: 0.5rem;
+    }
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .portfolio-card {
+      background: #1e293b;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .portfolio-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 20px rgba(34, 197, 94, 0.3);
+    }
+    .portfolio-card img {
+      width: 100%;
+      max-height: 250px;
+      object-fit: contain;
+      background-color: #0f172a;
+      padding: 10px;
+      border-bottom: 1px solid #334155;
+      box-sizing: border-box;
+    }
+    .portfolio-visual {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      color: #facc15;
+      background: radial-gradient(circle at 50% 40%, #1e3a5f 0%, #0f172a 70%);
+      border-bottom: 1px solid #334155;
+    }
+    .portfolio-content {
+      padding: 1rem;
+    }
+    .portfolio-content h4 {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #facc15;
+    }
+    .portfolio-content p {
+      margin: 0.5rem 0;
+      font-size: 0.9rem;
+    }
+    .portfolio-content .tag {
+      background-color: #0f172a;
+    }
+    .edu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .edu-card {
+      background: #1e293b;
+      padding: 1.25rem 1.5rem;
+      border-radius: 1rem;
+      border-left: 4px solid #facc15;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    .edu-card h3 {
+      color: #facc15;
+      margin: 0 0 0.25rem;
+      font-size: 1.05rem;
+    }
+    .edu-card p, .edu-card li {
+      margin: 0.25rem 0;
+      font-size: 0.92rem;
+    }
+    .edu-card ul {
+      padding-left: 1.1rem;
+      margin: 0.25rem 0 0;
+    }
+    .contact-box, .form-box {
+      background: #1e293b;
+      padding: 2rem;
+      border-radius: 1rem;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+    .contact-box:hover, .form-box:hover {
+      background: #0f172a;
+      transform: scale(1.02);
+      box-shadow: 0 8px 20px rgba(59, 130, 246, 0.2);
+    }
+    .contact-box button {
+      padding: 0.6rem 1.2rem;
+      border: none;
+      background: #facc15;
+      color: #0f172a;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 0 0.5rem 0.5rem 0;
+    }
+    .social-icons a {
+      color: #e2e8f0;
+      margin-right: 1rem;
+    }
+    .form-box input, .form-box textarea {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: none;
+      border-radius: 8px;
+      background: #0f172a;
+      color: #e2e8f0;
+      box-sizing: border-box;
+    }
+    .form-box button {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      background: #facc15;
+      color: #0f172a;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: #1e293b;
+      color: #f1f5f9;
+      font-size: 0.9rem;
+    }
+    @keyframes skillFall {
+      0% { opacity: 0; transform: translateY(-50px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .skill {
+      background-color: #334155;
+      color: #facc15;
+      padding: 0.6rem 1rem;
+      border-radius: 999px;
+      font-weight: 500;
+      animation: skillFall 1s ease-out forwards;
+      opacity: 0;
+    }
+    .skill:nth-child(1) { animation-delay: 0.1s; }
+    .skill:nth-child(2) { animation-delay: 0.2s; }
+    .skill:nth-child(3) { animation-delay: 0.3s; }
+    .skill:nth-child(4) { animation-delay: 0.4s; }
+    .skill:nth-child(5) { animation-delay: 0.5s; }
+    .skill:nth-child(6) { animation-delay: 0.6s; }
+    .skill:nth-child(7) { animation-delay: 0.7s; }
+    .skill:nth-child(8) { animation-delay: 0.8s; }
+    .skill:nth-child(9) { animation-delay: 0.9s; }
+    .skill:nth-child(10) { animation-delay: 1s; }
+    .skill:nth-child(11) { animation-delay: 1.1s; }
+    .skill:nth-child(12) { animation-delay: 1.2s; }
+    .skill:nth-child(13) { animation-delay: 1.3s; }
+  </style>
+</head>
+<body>
+  <nav>
+    <h1>Bhavya</h1>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#tools">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#resume">Resume</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section id="about" class="hero">
+    <img src="profile_pic.JPG" alt="Bhavya's Photo" class="floating-img"/>
+    <div class="hero-text">
+      <h2 class="pop-in">Hi, I'm Bhavya Marripudi</h2>
+      <p class="pop-in" style="animation-delay: 0.2s; animation-duration: 0.7s; animation-fill-mode: both;">Android Developer with 4.5+ years of experience specializing in Kotlin, Jetpack Compose, MVVM, and Firebase. I build scalable, modern Android apps with clean architecture, and I work with connected-vehicle data (CAN) and smart-glasses displays (Viture, Xreal, Magic Leap).</p>
+      <p class="pop-in" style="animation-delay: 0.2s; animation-duration: 0.7s; animation-fill-mode: both;">I've delivered production-ready apps, debugged performance bottlenecks, and automated CI/CD pipelines, working in agile teams with backend, QA, and design partners across the full SDLC, from planning to deployment.</p>
+    </div>
+  </section>
+
+  <section id="tools" class="section">
+    <h2>Technical Skills</h2>
+    <p>I specialize in Android development, with a strong background in mobile architecture, connected-vehicle data, smart-glasses HUDs, and app deployment pipelines.</p>
+    <div class="skills-grid">
+      <div class="skill">Languages: Kotlin, Java, Dart, XML, SQL, Python, JSON</div>
+      <div class="skill">Android: Jetpack Compose, ViewModel, LiveData, Room, DataStore, Navigation Component, WorkManager, Paging 3, BroadcastReceiver, AlarmManager</div>
+      <div class="skill">Architecture &amp; Patterns: MVVM, Clean Architecture, StateFlow, Kotlin Coroutines, Repository Pattern</div>
+      <div class="skill">Smart Glasses &amp; XR: Viture Luma Ultra, Xreal, Magic Leap, OpenGL ES (3D panels), Android Canvas/Bitmap rendering, secondary-display output, HUD design for see-through displays</div>
+      <div class="skill">Vehicle Data: CAN bus signal decoding, connected-vehicle telemetry, GPS / compass sensor fusion</div>
+      <div class="skill">Cloud: Firebase (Auth, Firestore, Realtime DB, Crashlytics, Analytics, Security Rules), AWS</div>
+      <div class="skill">DevOps &amp; CI/CD: GitHub Actions, Bitrise, Jenkins, ProGuard Rules, Build Variants, APK Signing, Release Build Configuration</div>
+      <div class="skill">Databases: SQLite, Room, Firestore</div>
+      <div class="skill">Testing: Espresso, JUnit, Mockito</div>
+      <div class="skill">Security &amp; Performance: Encrypted Shared Preferences, Lazy Loading, Caching, Coroutines</div>
+      <div class="skill">APIs: Valhalla, Overpass, Miovision, OpenWeather</div>
+      <div class="skill">Cross-Platform: Flutter (Beginner)</div>
+    </div>
+  </section>
+
+  <section id="experience" class="section">
+    <h2 style="margin-bottom: 2rem; text-align: left; color: #facc15;">Work Experience</h2>
+
+    <div class="scroll-container">
+
+      <div class="experience-card">
+        <h3>Android Developer</h3>
+        <p><strong>Akkodis Group (Client: General Motors)</strong><br><em>Aug 2025 – Present</em></p>
+
+        <h4>Project: Advanced Navigation Based on Connected Data</h4>
+        <ul>
+          <li>Migrated major modules from Java to Kotlin, enabling coroutine-based concurrency and improving maintainability.</li>
+          <li>Performed code optimization and refactoring, reducing technical debt and improving runtime stability.</li>
+          <li>Designed and implemented a CSV playback framework for vehicle telemetry (GPS, speed, heading, traffic signal timing) to simulate real-world driving scenarios offline.</li>
+          <li>Integrated Valhalla API for advanced routing, map-matching, and navigation logic, along with trace generation and playback tools for scenario reproduction.</li>
+          <li>Consumed and integrated data from Overpass API, Miovision feeds, and OpenWeather APIs, enriching navigation with road names, stop signs, traffic signals, and weather overlays.</li>
+          <li>Built heading-aware road name resolution logic to reduce ambiguity between parallel/intersecting roads in navigation UI.</li>
+          <li>Enhanced CHState orchestration to seamlessly switch between live telemetry and offline simulation without conflicts.</li>
+          <li>Implemented user settings features including CSV file picker, flexible playback modes, and visualization controls.</li>
+          <li>Collaborated with GM engineers to validate connected vehicle data services and ensure reliability of navigation features across test environments.</li>
+          <li>Designed and implemented a Foreground Service–based WebSocket server (Android 14 compliant) to support real-time communication between vehicle systems and smart glasses devices.</li>
+          <li>Architected background service lifecycle management with Android 12+/14 FGS permission handling and dataSync service type compliance.</li>
+          <li>Built UDP-based peer discovery module to enable automatic smart glasses device detection across local networks.</li>
+          <li>Engineered socket-based communication layer with dynamic port management and network resilience handling.</li>
+          <li>Ensured Android OS compatibility by implementing Foreground Service permissions (FOREGROUND_SERVICE, FOREGROUND_SERVICE_DATA_SYNC) for SDK 34+.</li>
+          <li>Optimized service startup logic from Application lifecycle to meet modern Android background execution restrictions.</li>
+          <li>Developed robust logging and diagnostics framework to trace connection states, discovery issues, and network instability.</li>
+          <li>Coordinated integration testing across connected device environments to validate end-to-end telemetry streaming reliability.</li>
+          <li>Built the <strong>lane-level speed data</strong> pipeline: polled a backend feed for per-lane speeds by road segment, parsed the segment/lane JSON, and supplemented it with predicted per-lane speeds (CSV) on I-696 segments.</li>
+          <li>Implemented <strong>lane-level map matching</strong> with JTS lane polygons and PROJ coordinate transforms to identify the host vehicle's lane (1–4) from GPS and direction of travel, with a nearest-lane fallback.</li>
+          <li>Designed a <strong>lane-change recommendation algorithm</strong> that compares the next-segment speed of the current lane against the other lanes and advises LEFT / RIGHT when the relative gain exceeds 15% (with speed sanity limits), returning stay / change / invalid decisions.</li>
+          <li>Added <strong>lane-change detection</strong> with debouncing and range validation, publishing direction and time to shared state for the HUD overlay.</li>
+        </ul>
+
+        <h4>Smart Glasses Application – Advanced HUD &amp; Camera Integration</h4>
+        <ul>
+          <li>Architected and developed a real-time Android HUD application for smart glasses, integrating vehicle telemetry, traffic events, lane guidance, and weather overlays using Kotlin and MVVM architecture.</li>
+          <li>Designed a WebSocket-based communication layer to stream live connected vehicle data (speed limits, stop signs, lane changes, traffic signals) with low-latency rendering.</li>
+          <li>Implemented a wireless RTSP camera integration module using Media3 ExoPlayer to support baby-seat monitoring and future rear backup camera mode.</li>
+          <li>Engineered subnet auto-discovery and IP persistence logic for wireless camera detection, including concurrent scanning control and connection stabilization.</li>
+          <li>Built gesture-based UI control (double-tap toggle) to dynamically switch between navigation HUD and external camera preview modes.</li>
+          <li>Optimized real-time rendering pipelines to ensure smooth overlay updates while maintaining 60 FPS camera preview performance.</li>
+          <li>Implemented fail-safe handling for RTSP buffering, reconnection logic, and state-based playback monitoring using ExoPlayer listeners.</li>
+          <li>Developed heading-aware lane visualization and corner detection logic to improve driver situational awareness.</li>
+          <li>Integrated battery status, Wi-Fi health monitoring, and system diagnostics within the HUD environment.</li>
+          <li>Applied concurrency best practices (thread pooling, race-condition prevention, lifecycle-aware operations) to eliminate unstable scan and connection behavior.</li>
+        </ul>
+
+        <h4>Viture, Xreal &amp; Magic Leap Smart Glasses – Near-Vehicle and Driving HUD</h4>
+        <ul>
+          <li>Built an Android host app that renders the in-car HUD and Near-Vehicle panels onto <strong>Viture Luma Ultra</strong> and <strong>Xreal</strong> see-through glasses through the phone/tablet's secondary display, sharing one vehicle-data module with the existing Magic Leap build.</li>
+          <li>Developed an <strong>OpenGL ES 3D panel renderer</strong> that places 512×512 canvas textures in space and locks them to the car's heading, so panels stay fixed relative to the vehicle as the driver turns their head.</li>
+          <li>Designed an animated <strong>Near-Vehicle radar UI</strong> for see-through displays (light on black, outlines over fills, minimal text): sonar rings, car bearing marker, distance counter, and a walking figure driven by real GPS movement, replacing a text-only screen with icon-based status chips (CAN link, lock, fuel, window).</li>
+          <li>Decoded vehicle <strong>CAN bus</strong> signals (lock state, windows, turn signals, speed, shift lever, and fuel level from Fuel_Information 0x10800040) and added link-loss detection so the UI refreshes on disconnect and keeps the <strong>last known</strong> vehicle status, persisted with SharedPreferences. Added a window-open alert (red pulsing icon, edge glow, voice prompt) for a locked car or lost link.</li>
+          <li>Extended the Near-Vehicle screen to <strong>Magic Leap</strong> as well, reusing the shared vehicle state and fuel-gauge renderer across Magic Leap, Viture, and Xreal.</li>
+          <li>Mapped steering-wheel cruise-switch CAN frames to LEFT / RIGHT / SELECT so the driver navigates glasses panels hands-free; added automatic <strong>Near-Vehicle &harr; Driving</strong> mode switching from the transmission shift lever with manual override.</li>
+          <li>Built the driving HUD canvas (turn indicators, speed limit, current speed, road name) and optimized the per-frame renderer by reusing bitmaps, canvases, and paints to avoid allocation churn on the render loop.</li>
+        </ul>
+        <p style="font-weight:400; font-size:0.9rem; margin-top:1rem;"><strong>Skills:</strong> Kotlin, Java, Android SDK, Coroutines, Hilt, MVVM, OpenGL ES, CAN bus, XR / smart glasses (Viture, Xreal, Magic Leap), Navigation Systems, Connected Vehicle Data, Git, Agile/Scrum.</p>
+      </div>
+
+      <div class="experience-card">
+        <h3>Android Developer</h3>
+        <p><strong>People Tech Group (Client: General Motors)</strong><br><em>Dec 2019 – Jun 2023</em></p>
+        <ul>
+          <li>Developed the <strong>Vehicle Info Android module</strong> for GM's connected car system, enabling users to view detailed real-time vehicle data.</li>
+          <li>Integrated <strong>Retrofit</strong> to consume VIN-based APIs for fetching diagnostics, mileage, engine status, and fuel levels.</li>
+          <li>Followed <strong>MVVM architecture</strong> and utilized <strong>Jetpack components</strong> (LiveData, ViewModel, Navigation) to ensure a scalable and maintainable codebase. Integrated <strong>Google Maps SDK</strong> to visualize historical route data with markers, routes, and geofencing alerts.</li>
+          <li><strong>Improved app boot time by 35%</strong> by optimizing coroutine usage, caching strategies, and lazy data loading.</li>
+          <li>Maintained <strong>OTA (Over-the-Air)</strong> update functionality, ensuring seamless firmware syncing between mobile and embedded vehicle systems.</li>
+          <li>Implemented <strong>custom logging and crash reporting</strong> using Firebase Crashlytics and integrated analytics to monitor app performance across devices.</li>
+          <li>Collaborated with cross-functional teams (backend, QA, design) in the U.S. using <strong>Agile/Scrum</strong>, participating in sprint planning and daily stand-ups.</li>
+          <li>Conducted <strong>code reviews</strong> and enforced Kotlin best practices across modules to reduce technical debt.</li>
+          <li>Built <strong>unit and instrumentation tests</strong> using JUnit, Mockito, and Espresso, improving test coverage by over 45%.</li>
+          <li>Contributed to the migration of legacy Java modules to modern <strong>Kotlin-based architecture</strong>.</li>
+          <li>Documented technical workflows, API contracts, and setup guides for internal developer onboarding and handoff.</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="portfolio" class="section" data-aos="fade-up">
+    <h2>My Portfolio</h2>
+    <div class="portfolio-grid">
+
+      <div class="portfolio-card">
+        <img src="nearvehicle.png" alt="Near-Vehicle radar on smart glasses">
+        <div class="portfolio-content">
+          <h4>Near-Vehicle Radar for Smart Glasses</h4>
+          <p>Animated radar screen for Viture, Xreal and Magic Leap glasses: sonar rings, a walking figure driven by real GPS movement, and icon status chips for CAN link, lock, fuel and window, with the last known vehicle status kept after a disconnect.</p>
+          <p><strong>Tech:</strong> Kotlin, OpenGL ES, Canvas, CAN bus</p>
+          <span class="tag">Smart Glasses</span>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <img src="connectedvehicle.png" alt="Advanced Navigation Based on Connected Data">
+        <div class="portfolio-content">
+          <h4>Advanced Navigation Based on Connected Data</h4>
+          <p>Navigation for connected vehicles: Valhalla routing and map-matching, road names, stop signs and traffic-signal timing (Overpass, Miovision), weather overlays, lane-level speed data with lane map matching, and a lane-change recommendation algorithm, plus a CSV playback framework to replay drives offline.</p>
+          <p><strong>Tech:</strong> Kotlin, Coroutines, Valhalla, Overpass, Miovision, OpenWeather, JTS</p>
+          <span class="tag">Connected Vehicle</span>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <div class="portfolio-visual"><i class="fas fa-glasses"></i></div>
+        <div class="portfolio-content">
+          <h4>Smart Glasses HUD &amp; Camera</h4>
+          <p>Real-time HUD streaming live vehicle data over WebSocket, with a wireless RTSP camera preview (Media3 ExoPlayer) and double-tap switching between navigation and camera.</p>
+          <p><strong>Tech:</strong> Kotlin, WebSocket, Media3 ExoPlayer, MVVM</p>
+          <span class="tag">Smart Glasses</span>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <img src="energymonitoring.png" alt="Energy Monitoring">
+        <div class="portfolio-content">
+          <h4>Energy Monitoring</h4>
+          <p>A real-time Android app that monitors electric bike battery health, performance metrics, and predictive alerts using CAN data.</p>
+          <span class="tag">Mobile App</span>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <img src="infotainment.png" alt="Infotainment UX">
+        <div class="portfolio-content">
+          <h4>Infotainment UX Study</h4>
+          <p>Research UI for evaluating driver distraction and layout preferences</p>
+          <span class="tag">UI/UX Research</span>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <img src="safetyapp.jpg" alt="Safety App">
+        <div class="portfolio-content">
+          <h4>SafetyApp</h4>
+          <p>Safety-focused emergency alert app with real-time location tracking and alert broadcasting to selected contacts.</p>
+          <p><strong>Tech:</strong> Kotlin, Firebase Realtime Database, Google Maps SDK, MVVM</p>
+          <a href="https://github.com/BhavyaMarripudi-1102/SafteyApp" class="tag" target="_blank" rel="noopener">GitHub Repo</a>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <img src="aichatbot.jpg" alt="AI ChatBot">
+        <div class="portfolio-content">
+          <h4>AI ChatBot</h4>
+          <p>Conversational AI chatbot using the OpenAI API and Jetpack Compose, with reusable UI components.</p>
+          <p><strong>Tech:</strong> Kotlin, Jetpack Compose, Coroutines</p>
+          <a href="https://github.com/BhavyaMarripudi-1102/AI_ChatBot" class="tag" target="_blank" rel="noopener">GitHub Repo</a>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <img src="customwidgets.jpg" alt="CustomWidgets">
+        <div class="portfolio-content">
+          <h4>CustomWidgets</h4>
+          <p>Reusable Jetpack Compose widgets with a modular design system for UI consistency across apps.</p>
+          <p><strong>Tech:</strong> Kotlin, Jetpack Compose</p>
+          <a href="https://github.com/BhavyaMarripudi-1102/CustomWidgets" class="tag" target="_blank" rel="noopener">GitHub Repo</a>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <img src="smartnotes.jpg" alt="SmartNotesApp">
+        <div class="portfolio-content">
+          <h4>SmartNotesApp</h4>
+          <p>Advanced notes app with reminders, snooze notifications, calendar/date filtering, search, dynamic theming, and export to TXT/PDF.</p>
+          <p><strong>Tech:</strong> Kotlin, Compose, Room, Hilt, MVVM, Material 3</p>
+          <a href="https://github.com/BhavyaMarripudi-1102/SmartNotesApp" class="tag" target="_blank" rel="noopener">GitHub Repo</a>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <div class="portfolio-visual"><i class="fas fa-newspaper"></i></div>
+        <div class="portfolio-content">
+          <h4>Multilingual News Aggregator with AI Summarizer</h4>
+          <p>Modular news app with real-time language toggle, AI-based summarization, trending carousel, article sharing, and dark/light theme.</p>
+          <p><strong>Tech:</strong> Kotlin, Jetpack Compose, Hilt, MVVM, StateFlow</p>
+          <a href="https://github.com/BhavyaMarripudi-1102/MultilingualNewsAggregatorWithAISummarizer" class="tag" target="_blank" rel="noopener">GitHub Repo</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="education" class="section" data-aos="fade-up">
+    <h2>Education &amp; Certifications</h2>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <h3>MS in Computer Science</h3>
+        <p>University of North Texas | Denton, TX</p>
+        <p><em>May 2025</em></p>
+      </div>
+      <div class="edu-card">
+        <h3>B.Tech in CSE</h3>
+        <p>Jawaharlal Nehru Technological University | India</p>
+        <p><em>2019</em></p>
+      </div>
+      <div class="edu-card">
+        <h3>Certifications</h3>
+        <ul>
+          <li>Introduction to Android Mobile Application Development by Meta – Coursera</li>
+          <li>Java for Android by Vanderbilt University – Coursera</li>
+          <li>API's by Meta – Coursera</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="resume" class="section" data-aos="fade-up">
+    <h2 style="text-align: center; color: #facc15;">Resume</h2>
+    <p style="text-align: center;">You can view or download my full resume below.</p>
+
+    <div style="text-align: center; margin-bottom: 2rem;">
+      <a href="Bhavya_M_android_developer.pdf" download style="background-color: #facc15; color: #0f172a; padding: 0.75rem 1.5rem; font-weight: bold; border-radius: 8px; text-decoration: none;">📄 Download Resume</a>
+    </div>
+
+    <div style="display: flex; justify-content: center;">
+      <iframe src="Bhavya_M_android_developer.pdf" width="100%" height="600px" style="border: none; border-radius: 12px; max-width: 1000px;"></iframe>
+    </div>
+  </section>
+
+  <section id="contact" class="section">
+    <h2>Let's Talk 👋</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+      <div class="contact-box">
+        <p>I'm currently available for contract work or full-time roles. Whether you have a question or just want to say hi, feel free to reach out!</p>
+        <button onclick="navigator.clipboard.writeText('bhavya1102m@gmail.com')">Copy Email</button>
+        <button onclick="navigator.clipboard.writeText('940-843-7625')">Copy Phone</button>
+        <div class="social-icons" style="margin-top:1rem;">
+          <a href="https://linkedin.com/in/bhavya-marripudi-678144116" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg"></i></a>
+          <a href="https://github.com/BhavyaMarripudi-1102" target="_blank" rel="noopener"><i class="fab fa-github fa-lg"></i></a>
+        </div>
+      </div>
+      <div class="form-box">
+        <form>
+          <input type="text" placeholder="Name *" required />
+          <input type="email" placeholder="Email *" required />
+          <input type="text" placeholder="Subject *" required />
+          <textarea rows="4" placeholder="Your message *" required></textarea>
+          <button type="submit">Contact Me</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2026 Bhavya Marripudi — Android Developer Portfolio
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      offset: 100,
+      duration: 1000,
+      once: true,
+    });
+  </script>
+</body>
+</html>
